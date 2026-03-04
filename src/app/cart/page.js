@@ -2,11 +2,20 @@
 import Link from "next/link";
 import { useCart } from "../../context/CartContext";
 import CartItem from "../../components/CartItem";
+import { useEffect, useState } from "react";
 
 export default function CartPage() {
   const { cart, totalAmount } = useCart();
+  const [isClient, setIsClient] = useState(false);
 
-  if (cart.length === 0) {
+  // Avoid hydration mismatch by waiting for client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+
+  if (!cart || cart.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "50px 0" }}>
         <h2>Your cart is empty</h2>
@@ -20,21 +29,25 @@ export default function CartPage() {
     <div>
       <h1>Current Order</h1>
       <div className="card" style={{ marginTop: "20px" }}>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Qty</th>
-              <th>Total</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart.map((item) => (
-              <CartItem key={item.id} item={item} />
-            ))}
-          </tbody>
-        </table>
+        
+        {/* Responsive Table Wrapper */}
+        <div style={{ overflowX: "auto", marginBottom: "15px" }}>
+          <table style={{ minWidth: "500px" }}>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item) => (
+                <CartItem key={item.id} item={item} />
+              ))}
+            </tbody>
+          </table>
+        </div>
         
         <div style={{ marginTop: "20px", textAlign: "right" }}>
           <h3>Grand Total: ₹{totalAmount}</h3>
@@ -52,21 +65,3 @@ export default function CartPage() {
     </div>
   );
 }
-{/* Wrap table in a scrollable div for mobile */}
-<div style={{ overflowX: "auto", marginBottom: "15px" }}>
-  <table style={{ minWidth: "500px" }}> {/* Force table to keep its shape */}
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Qty</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {cart.map((item) => (
-        <CartItem key={item.id} item={item} />
-      ))}
-    </tbody>
-  </table>
-</div>
