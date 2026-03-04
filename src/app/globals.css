@@ -140,3 +140,61 @@ td { padding: 10px; border-bottom: 1px solid var(--border); }
   font-size: 0.9rem;
   color: white;
 }
+/* --- PASTE AT THE BOTTOM OF src/app/globals.css --- */
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  /* 1. Reset Container width for mobile */
+  .container {
+    width: 100%;
+    padding: 15px;
+    margin: 0;
+  }
+
+  /* 2. Menu Grid: Show 2 items per row on mobile (like food apps) */
+  .grid-menu {
+    grid-template-columns: repeat(2, 1fr); /* Force 2 columns */
+    gap: 10px;
+  }
+  
+  /* Adjust card padding for small screens */
+  .card { padding: 12px; }
+  .menu-img { height: 120px; } /* Smaller images */
+
+  /* 3. Typography Adjustments */
+  h1 { font-size: 1.5rem; text-align: center; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1rem; }
+
+  /* 4. Make Buttons full width and touch-friendly */
+  .btn {
+    width: 100%;
+    padding: 14px; /* Larger touch target */
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  /* 5. Navbar adjustments */
+  .top-nav .container {
+    padding: 0 15px !important;
+  }
+  .nav-logo { font-size: 1.2rem; }
+  
+  /* 6. Fix Checkout Inputs */
+  .flex-between {
+    gap: 10px;
+  }
+  /* But keep totals (Text....Price) in a row */
+  .card .flex-between {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  /* 7. Modal Mobile Fixes */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+    max-height: 90vh;
+    overflow-y: auto; /* Scroll if modal is too tall */
+  }
+}

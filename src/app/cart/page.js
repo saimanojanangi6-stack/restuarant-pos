@@ -52,3 +52,21 @@ export default function CartPage() {
     </div>
   );
 }
+{/* Wrap table in a scrollable div for mobile */}
+<div style={{ overflowX: "auto", marginBottom: "15px" }}>
+  <table style={{ minWidth: "500px" }}> {/* Force table to keep its shape */}
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {cart.map((item) => (
+        <CartItem key={item.id} item={item} />
+      ))}
+    </tbody>
+  </table>
+</div>
